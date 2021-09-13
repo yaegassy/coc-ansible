@@ -1,0 +1,217 @@
+{
+  "name": "@yaegassy/coc-ansible",
+  "version": "0.0.1",
+  "description": "ansible-language-server extension for coc.nvim",
+  "author": "yaegassy <yosstools@gmail.com>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "keywords": [
+    "coc.nvim",
+    "ansible",
+    "vim",
+    "neovim"
+  ],
+  "engines": {
+    "coc": "^0.0.80"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yaegassy/coc-ansible"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint src --ext ts",
+    "clean": "rimraf lib",
+    "watch": "node esbuild.js --watch",
+    "build": "node esbuild.js",
+    "prepare": "node esbuild.js"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120,
+    "semi": true
+  },
+  "devDependencies": {
+    "@types/node": "^14.17.5",
+    "@types/rimraf": "^3.0.0",
+    "@types/which": "2.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.8.2",
+    "@typescript-eslint/parser": "^4.8.2",
+    "coc.nvim": "^0.0.80",
+    "esbuild": "^0.8.42",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.2.0",
+    "rimraf": "^3.0.2",
+    "which": "^2.0.2",
+    "typescript": "^4.1.2"
+  },
+  "activationEvents": [
+    "onLanguage:ansible",
+    "onLanguage:yaml.ansible"
+  ],
+  "yamlValidation": [
+    {
+      "fileMatch": "requirements.yml",
+      "url": "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-requirements.json"
+    },
+    {
+      "fileMatch": "meta/main.yml",
+      "url": "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-meta.json"
+    },
+    {
+      "fileMatch": [
+        "playbooks/vars/*.yml",
+        "playbooks/vars/*.yaml",
+        "vars/*.yml",
+        "vars/*.yaml",
+        "defaults/*.yml",
+        "defaults/*.yaml",
+        "host_vars/*.yml",
+        "host_vars/*.yaml",
+        "group_vars/*.yml",
+        "group_vars/*.yaml"
+      ],
+      "url": "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-vars.json"
+    },
+    {
+      "fileMatch": [
+        "zuul.d/*.yaml",
+        "zuul-tests.d/*.yaml",
+        ".zuul.yaml"
+      ],
+      "url": "https://raw.githubusercontent.com/ansible-community/schemas/main/f/zuul.json"
+    },
+    {
+      "fileMatch": [
+        ".ansible-lint"
+      ],
+      "url": "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-lint.json"
+    },
+    {
+      "fileMatch": [
+        "molecule/*/molecule.yml"
+      ],
+      "url": "https://raw.githubusercontent.com/ansible-community/schemas/main/f/molecule.json"
+    },
+    {
+      "fileMatch": [
+        "galaxy.yml"
+      ],
+      "url": "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-galaxy.json"
+    }
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "coc-ansible configuration",
+      "properties": {
+        "ansible.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable coc-ansible extension."
+        },
+        "ansible.builtin.isWithYamllint": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to install yamllint the built-in installer."
+        },
+        "ansible.builtin.ansibleVersion": {
+          "type": "string",
+          "default": "",
+          "description": "Version of ansible for built-in install."
+        },
+        "ansible.builtin.ansibleLintVersion": {
+          "type": "string",
+          "default": "",
+          "description": "Version of ansible-lint for built-in install."
+        },
+        "ansible.builtin.yamllintVersion": {
+          "type": "string",
+          "default": "",
+          "description": "Version of yamllint for built-in install."
+        },
+        "ansible.ansible.path": {
+          "scope": "resource",
+          "type": "string",
+          "default": "ansible",
+          "description": "Path to the ansible executable."
+        },
+        "ansible.ansible.useFullyQualifiedCollectionNames": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Always use fully qualified collection names (FQCN) when inserting a module name. Disabling it will only use FQCNs when necessary."
+        },
+        "ansible.ansibleLint.enabled": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": true,
+          "description": "Enable linting with ansible-lint on document open/save."
+        },
+        "ansible.ansibleLint.path": {
+          "scope": "resource",
+          "type": "string",
+          "default": "ansible-lint",
+          "description": "Path to the ansible-lint executable."
+        },
+        "ansible.ansibleLint.arguments": {
+          "scope": "resource",
+          "type": "string",
+          "default": "",
+          "description": "Command line arguments to be passed to ansible-lint."
+        },
+        "ansible.python.interpreterPath": {
+          "scope": "resource",
+          "type": "string",
+          "default": "",
+          "description": "Path to the Python interpreter executable. Particularly important if you are using a Python virtual environment. Leave blank to use Python from PATH."
+        },
+        "ansible.python.activationScript": {
+          "scope": "resource",
+          "type": "string",
+          "default": "",
+          "description": "Path to the virtual environment activation script. Use only if you have a custom activation script. It will be sourced using bash before executing Ansible commands. If set, the Interpreter Path setting is ignored."
+        },
+        "ansible.ansibleNavigator.path": {
+          "default": "ansible-navigator",
+          "description": "Points to the ansible-navigator executable.",
+          "scope": "machine-overridable",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ansible.ansiblePlaybook.path": {
+          "default": "ansible-playbook",
+          "description": "Points to the ansible-playbook executable.",
+          "scope": "machine-overridable",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "ansible.builtin.installRequirementsTools",
+        "title": "Install ansible, ansible-lint and yamllint(optional) with extension's venv"
+      },
+      {
+        "command": "ansible.ansible-playbook.run",
+        "title": "Run playbook via `ansible-playbook`"
+      },
+      {
+        "command": "ansible.ansible-navigator.run",
+        "title": "Run playbook via `ansible-navigator run`"
+      }
+    ]
+  },
+  "dependencies": {
+    "ansible-language-server": "0.1.1-0"
+  }
+}
