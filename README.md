@@ -8,11 +8,9 @@
 
 **CocInstall**:
 
-> TODO
->
-> ```vim
-> :CocInstall @yaegassy/coc-ansible
-> ```
+```vim
+:CocInstall @yaegassy/coc-ansible
+```
 
 > scoped packages
 
