@@ -85,14 +85,14 @@ You can also run the installation command manually.
       - `~/AppData/Local/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/Scripts/yamllint.exe`
   - **[Note]** `ansible` is a very large tool and will take some time to install
 
+---
+
 **Not implementing it!**:
 
 > I have not implemented this because I do not think it is desirable to run commands from Vim that may be executed for a long time.
 
 - [Not implement] `ansible.ansible-playbook.run`: Run playbook via `ansible-playbook`
 - [Not implement] `ansible.ansible-navigator.run`: Run playbook via `ansible-navigator run`
-
-## Detect: ansible-language-server
 
 ## Thanks
 
