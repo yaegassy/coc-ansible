@@ -76,13 +76,13 @@ You can also run the installation command manually.
 - `ansible.builtin.installRequirementsTools`: Install `ansible`, `ansible-lint` and `yamllint` (optional) with extension's venv
   - It will be installed in this path:
     - Mac/Linux:
-      - ~/.config/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/bin/ansible
-      - ~/.config/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/bin/ansible-lint
-      - ~/.config/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/bin/yamllint
+      - `~/.config/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/bin/ansible`
+      - `~/.config/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/bin/ansible-lint`
+      - `~/.config/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/bin/yamllint`
     - Windows:
-      - ~/AppData/Local/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/Scripts/ansible.exe
-      - ~/AppData/Local/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/Scripts/ansible-lint.exe
-      - ~/AppData/Local/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/Scripts/yamllint.exe
+      - `~/AppData/Local/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/Scripts/ansible.exe`
+      - `~/AppData/Local/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/Scripts/ansible-lint.exe`
+      - `~/AppData/Local/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/Scripts/yamllint.exe`
   - **[Note]** `ansible` is a very large tool and will take some time to install
 
 **Not implementing it!**:
