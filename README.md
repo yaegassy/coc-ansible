@@ -41,7 +41,7 @@ If you install ansible's vim plugin, `yaml.ansible` filetype will be added autom
 
 coc-ansible allows you to create an extension-only "venv" and install `ansible`, `ansible-lint` and `yamllint`.
 
-`yamllint` will be installed by setting `ansible.built-in.isWithYamllint` to `true` (default: `false`).
+`yamllint` will be installed by setting `ansible.builtin.isWithYamllint` to `true` (default: `false`).
 
 You can also specify the version of each tool. (setting: `ansible.bultin.ansibleVersion`, `ansible.bultin.ansibleLintVersion`, `ansible.bultin.yamllintVersion`)
 
