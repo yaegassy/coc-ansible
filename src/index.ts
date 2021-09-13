@@ -1,23 +1,23 @@
 import {
+  CancellationToken,
   commands,
+  ConfigurationParams,
   ExtensionContext,
   LanguageClient,
   LanguageClientOptions,
   ServerOptions,
   Thenable,
   TransportKind,
-  workspace,
-  ConfigurationParams,
-  CancellationToken,
-  WorkspaceConfiguration,
   window,
+  workspace,
+  WorkspaceConfiguration,
 } from 'coc.nvim';
 
-import path from 'path';
 import fs from 'fs';
-import child_process from 'child_process';
+import path from 'path';
 import util from 'util';
 import which from 'which';
+import child_process from 'child_process';
 
 import { AnsiblePlaybookRunProvider } from './features/runner';
 import { installLsRequirementsTools } from './installer';
@@ -209,6 +209,7 @@ function configuration(params: ConfigurationParams, token: CancellationToken, ne
           extensionConfig['ansibleLint']['enabled'] = false;
         }
       } else {
+        // [patch] If "ansible-lint" is not found, this feature will be set to false.
         if (!existsAnsibleLintCmd) {
           extensionConfig['ansibleLint']['enabled'] = false;
         }
