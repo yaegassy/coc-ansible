@@ -2,7 +2,7 @@
 
 [ansible-language-server](https://github.com/ansible/ansible-language-server) extension for [coc.nvim](https://github.com/neoclide/coc.nvim)
 
-<img width="780" alt="coc-ansible-demo" src="https://user-images.githubusercontent.com/188642/133079694-9c2be3c7-140a-41b4-b718-2b8854160811.png">
+<img width="780" alt="coc-ansible-demo" src="https://user-images.githubusercontent.com/188642/133183623-7eb4529b-cf4b-4778-adfe-b57105194b7c.gif">
 
 ## Install
 
