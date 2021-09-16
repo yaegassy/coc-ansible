@@ -68,6 +68,7 @@ You can also run the installation command manually.
 - `ansible.python.interpreterPath`: Path to the Python interpreter executable. Particularly important if you are using a Python virtual environment. Leave blank to use Python from PATH, default: `""`
 - `ansible.ansibleNavigator.path`: Points to the ansible-navigator executable, default: `"ansible-navigator"`
 - `ansible.ansiblePlaybook.path`: Points to the ansible-playbook executable, default: `"ansible-playbook"`
+- `ansible.dev.serverPath`: Absolute path to ansible language server module. If it is not set, use the extention's server module. (For develop and check), default: `""`
 
 ## Commands
 
