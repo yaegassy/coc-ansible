@@ -116,9 +116,15 @@ export async function activate(context: ExtensionContext): Promise<void> {
     })
   );
 
-  const serverModule = context.asAbsolutePath(
-    path.join('node_modules', 'ansible-language-server', 'out', 'server', 'src', 'server.js')
-  );
+  let serverModule: string;
+  const devServerPath = extensionConfig.get<string>('dev.serverPath', '');
+  if (devServerPath && devServerPath !== '' && fs.existsSync(devServerPath)) {
+    serverModule = devServerPath;
+  } else {
+    serverModule = context.asAbsolutePath(
+      path.join('node_modules', 'ansible-language-server', 'out', 'server', 'src', 'server.js')
+    );
+  }
 
   const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
 
