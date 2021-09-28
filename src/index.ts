@@ -10,19 +10,20 @@ import {
   TransportKind,
   window,
   workspace,
-  WorkspaceConfiguration,
 } from 'coc.nvim';
 
 import fs from 'fs';
 import path from 'path';
-import util from 'util';
-import which from 'which';
-import child_process from 'child_process';
 
 import { AnsiblePlaybookRunProvider } from './features/runner';
 import { installLsRequirementsTools } from './installer';
-
-const exec = util.promisify(child_process.exec);
+import {
+  existsCmdWithHelpOpt,
+  existsPythonImportModule,
+  getBuiltinPythonPath,
+  getBuiltinToolPath,
+  getCurrentPythonPath,
+} from './tool';
 
 let client: LanguageClient;
 let extensionStoragePath: string;
@@ -30,6 +31,9 @@ let pythonInterpreterPath: string;
 let existsAnsibleCmd: boolean;
 let existsAnsibleLintCmd: boolean;
 let ansibleLintModule: boolean;
+
+// MEMO: client logging
+const outputChannel = window.createOutputChannel('ansible-client');
 
 export async function activate(context: ExtensionContext): Promise<void> {
   const extensionConfig = workspace.getConfiguration('ansible');
@@ -41,47 +45,60 @@ export async function activate(context: ExtensionContext): Promise<void> {
     fs.mkdirSync(extensionStoragePath, { recursive: true });
   }
 
+  outputChannel.appendLine(`${'#'.repeat(10)} ansible-client\n`);
+
   new AnsiblePlaybookRunProvider(context);
 
-  const isRealpath = true;
-  const pythonCommand = getPythonPath(extensionConfig, isRealpath);
+  const pythonCommandPaths = getCurrentPythonPath(extensionConfig);
 
   const ansiblePath = extensionConfig.get('ansible.path', 'ansible');
   const ansibleLintPath = extensionConfig.get('ansibleLint.path', 'ansible-lint');
 
   pythonInterpreterPath = extensionConfig.get('python.interpreterPath', '');
-  existsAnsibleCmd = await whichWrapper(ansiblePath);
-  existsAnsibleLintCmd = await whichWrapper(ansibleLintPath);
+
+  existsAnsibleCmd = await existsCmdWithHelpOpt(ansiblePath);
+  existsAnsibleLintCmd = await existsCmdWithHelpOpt(ansibleLintPath);
+
+  outputChannel.appendLine(`==== environment ====\n`);
+  outputChannel.appendLine(`pythonCommandPaths(env): ${pythonCommandPaths ? pythonCommandPaths.env : 'None'}`);
+  outputChannel.appendLine(`pythonCommandPaths(real): ${pythonCommandPaths ? pythonCommandPaths.real : 'None'}`);
+  outputChannel.appendLine(`pythonInterpreterPath(custom): ${pythonInterpreterPath ? pythonInterpreterPath : 'None'}`);
+  outputChannel.appendLine(`existsAnsibleCmd: ${existsAnsibleCmd}`);
+  outputChannel.appendLine(`existsAnsibleLintCmd: ${existsAnsibleLintCmd}`);
 
   let existsExtAnsibleCmd = false;
+  let ansibleBuiltinPath = '';
+  let ansibleLintBuiltinPath = '';
 
   if (!pythonInterpreterPath) {
     if (!existsAnsibleCmd || !existsAnsibleLintCmd) {
-      if (process.platform === 'win32') {
-        if (fs.existsSync(path.join(context.storagePath, 'ansible', 'venv', 'Scripts', 'ansible.exe'))) {
-          existsExtAnsibleCmd = true;
-        }
-      } else {
-        if (fs.existsSync(path.join(context.storagePath, 'ansible', 'venv', 'bin', 'ansible'))) {
-          existsExtAnsibleCmd = true;
-        }
+      ansibleBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible');
+      ansibleLintBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible-lint');
+      if (ansibleBuiltinPath) {
+        existsExtAnsibleCmd = true;
+
+        outputChannel.appendLine(`\n==== use builtin tool ====\n`);
+        outputChannel.appendLine(`ansibleBuiltinPath: ${ansibleBuiltinPath}`);
+        outputChannel.appendLine(`ansibleLintBuiltinPath: ${ansibleLintBuiltinPath ? ansibleLintBuiltinPath : 'None'}`);
       }
     }
 
     if (!existsAnsibleCmd && !existsExtAnsibleCmd) {
-      if (pythonCommand) {
+      if (pythonCommandPaths) {
         // Install...
-        await installWrapper(pythonCommand, context);
+        await installWrapper(pythonCommandPaths.real, context);
 
         // Exists check
-        if (process.platform === 'win32') {
-          if (fs.existsSync(path.join(context.storagePath, 'ansible', 'venv', 'Scripts', 'ansible.exe'))) {
-            existsExtAnsibleCmd = true;
-          }
-        } else {
-          if (fs.existsSync(path.join(context.storagePath, 'ansible', 'venv', 'bin', 'ansible'))) {
-            existsExtAnsibleCmd = true;
-          }
+        ansibleBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible');
+        ansibleLintBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible-lint');
+        if (ansibleBuiltinPath) {
+          existsExtAnsibleCmd = true;
+
+          outputChannel.appendLine(`\n==== use builtin tool ====\n`);
+          outputChannel.appendLine(`ansibleBuiltinPath: ${ansibleBuiltinPath}`);
+          outputChannel.appendLine(
+            `ansibleLintBuiltinPath: ${ansibleLintBuiltinPath ? ansibleLintBuiltinPath : 'None'}`
+          );
         }
       } else {
         window.showErrorMessage('python3/python command not found');
@@ -100,6 +117,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
     const ansibleModule = await existsPythonImportModule(pythonInterpreterPath, 'ansible');
     ansibleLintModule = await existsPythonImportModule(pythonInterpreterPath, 'ansiblelint');
 
+    outputChannel.appendLine(`\n==== use pythonInterpreterPath module ====\n`);
+    outputChannel.appendLine(`ansibleModule: ${ansibleModule ? ansibleModule : 'None'}`);
+    outputChannel.appendLine(`ansibleLintModule: ${ansibleLintModule ? ansibleLintModule : 'None'}`);
+
     if (!ansibleModule) {
       window.showErrorMessage('Exit because "ansible" does not exist.');
       return;
@@ -111,7 +132,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
       if (client.serviceState !== 5) {
         await client.stop();
       }
-      await installWrapper(pythonCommand, context);
+      if (pythonCommandPaths) {
+        await installWrapper(pythonCommandPaths.real, context);
+      }
       client.start();
     })
   );
@@ -192,23 +215,7 @@ function configuration(params: ConfigurationParams, token: CancellationToken, ne
 
       if (!pythonInterpreterPath && !existsAnsibleCmd) {
         // [patch] Use extension venv
-        if (process.platform === 'win32') {
-          extensionConfig['python']['interpreterPath'] = path.join(
-            extensionStoragePath,
-            'ansible',
-            'venv',
-            'Scripts',
-            'python.exe'
-          );
-        } else {
-          extensionConfig['python']['interpreterPath'] = path.join(
-            extensionStoragePath,
-            'ansible',
-            'venv',
-            'bin',
-            'python'
-          );
-        }
+        extensionConfig['python']['interpreterPath'] = getBuiltinPythonPath(extensionStoragePath);
       } else if (pythonInterpreterPath) {
         // [patch] If "ansible-lint" is not found, this feature will be set to false.
         if (!ansibleLintModule) {
@@ -227,55 +234,6 @@ function configuration(params: ConfigurationParams, token: CancellationToken, ne
   }
 
   return next(params, token);
-}
-
-function getPythonPath(config: WorkspaceConfiguration, isRealpath?: boolean): string {
-  let pythonPath = config.get<string>('python.interpreterPath', '');
-  if (pythonPath) {
-    return pythonPath;
-  }
-
-  try {
-    pythonPath = which.sync('python3');
-    if (isRealpath) {
-      pythonPath = fs.realpathSync(pythonPath);
-    }
-    return pythonPath;
-  } catch (e) {
-    // noop
-  }
-
-  try {
-    pythonPath = which.sync('python');
-    if (isRealpath) {
-      pythonPath = fs.realpathSync(pythonPath);
-    }
-    return pythonPath;
-  } catch (e) {
-    // noop
-  }
-
-  return pythonPath;
-}
-
-async function existsPythonImportModule(pythonPath: string, moduleName: string): Promise<boolean> {
-  const checkCmd = `${pythonPath} -c "import ${moduleName}"`;
-  try {
-    await exec(checkCmd);
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-async function whichWrapper(command: string): Promise<boolean> {
-  const checkCmd = `${command} -h`;
-  try {
-    await exec(checkCmd);
-    return true;
-  } catch (error) {
-    return false;
-  }
 }
 
 async function installWrapper(pythonCommand: string, context: ExtensionContext) {
