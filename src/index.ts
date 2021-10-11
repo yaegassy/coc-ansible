@@ -149,7 +149,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     );
   }
 
-  const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
+  const debugOptions = { execArgv: ['--nolazy', '--inspect=6010'] };
 
   const serverOptions: ServerOptions = {
     run: { module: serverModule, transport: TransportKind.ipc },
