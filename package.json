@@ -251,5 +251,7 @@
       }
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "@ansible/ansible-language-server": "^0.2.5"
+  }
 }
