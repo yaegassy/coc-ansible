@@ -69,6 +69,7 @@ You can also run the installation command manually.
 - `ansible.ansibleNavigator.path`: Points to the ansible-navigator executable, default: `"ansible-navigator"`
 - `ansible.ansiblePlaybook.path`: Points to the ansible-playbook executable, default: `"ansible-playbook"`
 - `ansible.dev.serverPath`: Absolute path to ansible language server module. If it is not set, use the extention's server module. (For develop and check), default: `""`
+- `ansibleServer.trace.server`: Traces the communication between coc.nvim and the ansible language server, default: `"off"`
 
 ## Commands
 

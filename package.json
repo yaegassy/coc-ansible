@@ -233,6 +233,16 @@
           "type": "string",
           "default": "",
           "description": "Absolute path to ansible language server module. If it is not set, use the extention's server module. (For develop and check)"
+        },
+        "ansibleServer.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between coc.nvim and the ansible language server."
         }
       }
     },
