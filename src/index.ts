@@ -145,7 +145,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     serverModule = devServerPath;
   } else {
     serverModule = context.asAbsolutePath(
-      path.join('node_modules', 'ansible-language-server', 'out', 'server', 'src', 'server.js')
+      path.join('node_modules', '@ansible', 'ansible-language-server', 'out', 'server', 'src', 'server.js')
     );
   }
 
