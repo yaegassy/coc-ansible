@@ -95,6 +95,22 @@ You can also run the installation command manually.
 - [Not implement] `ansible.ansible-playbook.run`: Run playbook via `ansible-playbook`
 - [Not implement] `ansible.ansible-navigator.run`: Run playbook via `ansible-navigator run`
 
+## Code Actions
+
+**Example key mapping (Code Action related)**:
+
+```vim
+nmap <silent> ga <Plug>(coc-codeaction-line)
+```
+
+**Usage**:
+
+In the line with diagnostic message, enter the mapped key (e.g. `ga`) and you will see a list of code actions that can be performed.
+
+**Actions**:
+
+- `Ignoring rules for current line (# noqa [ruleId])`
+
 ## Thanks
 
 - [ansible/ansible-language-server](https://github.com/ansible/ansible-language-server)
