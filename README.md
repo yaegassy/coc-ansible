@@ -84,6 +84,7 @@ You can also run the installation command manually.
       - `~/AppData/Local/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/Scripts/ansible-lint.exe`
       - `~/AppData/Local/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/Scripts/yamllint.exe`
   - **[Note]** `ansible` is a very large tool and will take some time to install
+- `ansible.server.restart`: Restart ansible language server
 
 ---
 

@@ -252,6 +252,10 @@
         "title": "Install ansible, ansible-lint and yamllint(optional) with extension's venv"
       },
       {
+        "command": "ansible.server.restart",
+        "title": "Restart ansible language server"
+      },
+      {
         "command": "ansible.ansible-playbook.run",
         "title": "Run playbook via `ansible-playbook`"
       },
