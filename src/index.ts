@@ -5,6 +5,7 @@ import {
   ExtensionContext,
   LanguageClient,
   LanguageClientOptions,
+  languages,
   ServerOptions,
   Thenable,
   TransportKind,
@@ -16,6 +17,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { AnsiblePlaybookRunProvider } from './features/runner';
+import { AnsibleCodeActionProvider } from './action';
 import { installLsRequirementsTools } from './installer';
 import {
   existsCmdWithHelpOpt,
@@ -172,11 +174,13 @@ export async function activate(context: ExtensionContext): Promise<void> {
     },
   };
 
+  const documentSelector = [
+    { scheme: 'file', language: 'ansible' },
+    { scheme: 'file', language: 'yaml.ansible' },
+  ];
+
   const clientOptions: LanguageClientOptions = {
-    documentSelector: [
-      { scheme: 'file', language: 'ansible' },
-      { scheme: 'file', language: 'yaml.ansible' },
-    ],
+    documentSelector,
     middleware: {
       workspace: {
         configuration,
@@ -185,8 +189,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
   };
 
   client = new LanguageClient('ansibleServer', 'Ansible Server', serverOptions, clientOptions);
-
   client.start();
+
+  const actionProvider = new AnsibleCodeActionProvider(outputChannel);
+  context.subscriptions.push(languages.registerCodeActionProvider(documentSelector, actionProvider, 'ansible'));
 }
 
 export function deactivate(): Thenable<void> | undefined {
