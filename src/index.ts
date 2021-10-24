@@ -139,6 +139,18 @@ export async function activate(context: ExtensionContext): Promise<void> {
     })
   );
 
+  context.subscriptions.push(
+    commands.registerCommand('ansible.server.restart', async () => {
+      // Refresh the diagnostics by setting undefined for coc.nvim
+      const { document } = await workspace.getCurrentState();
+      client.diagnostics?.set(document.uri, undefined);
+
+      // Stop and Start
+      await client.stop();
+      client.start();
+    })
+  );
+
   let serverModule: string;
   const devServerPath = extensionConfig.get<string>('dev.serverPath', '');
   if (devServerPath && devServerPath !== '' && fs.existsSync(devServerPath)) {
