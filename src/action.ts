@@ -37,7 +37,6 @@ export class AnsibleCodeActionProvider implements CodeActionProvider {
     /** Ignoring rules for current line (# noqa [ruleId] */
     if (this.lineRange(range) && context.diagnostics.length > 0) {
       const line = doc.getline(range.start.line);
-      this.outputChannel.append(line);
       if (line && line.length) {
         let existsAnsibleDiagnostics = false;
         const ruleIds: string[] = [];
