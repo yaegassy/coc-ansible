@@ -86,7 +86,7 @@ export class AnsibleCodeActionProvider implements CodeActionProvider {
     let r: string | undefined;
     const l = s.split('\n');
 
-    const p = /^(?:\[(?<ruleId>.*)\].*)$/;
+    const p = /^(?:\[(?<ruleId>.*?)\].*)$/;
     const m = l[0].match(p);
     if (m) {
       if (m.groups?.ruleId) {
