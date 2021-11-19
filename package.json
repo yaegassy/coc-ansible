@@ -168,10 +168,7 @@
           "default": "ansible-navigator",
           "description": "Points to the ansible-navigator executable.",
           "scope": "machine-overridable",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string"
         },
         "ansible.executionEnvironment.containerEngine": {
           "scope": "resource",
