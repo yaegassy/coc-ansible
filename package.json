@@ -138,7 +138,7 @@
           "scope": "resource",
           "type": "string",
           "default": "ansible",
-          "description": "Path to the ansible executable."
+          "description": "Path to the ansible executable. All subcommands are expected to have adjacent locations."
         },
         "ansible.ansible.useFullyQualifiedCollectionNames": {
           "scope": "resource",
