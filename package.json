@@ -173,15 +173,6 @@
             "null"
           ]
         },
-        "ansible.ansiblePlaybook.path": {
-          "default": "ansible-playbook",
-          "description": "Points to the ansible-playbook executable.",
-          "scope": "machine-overridable",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
         "ansible.executionEnvironment.containerEngine": {
           "scope": "resource",
           "type": "string",
