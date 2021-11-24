@@ -105,6 +105,22 @@
     }
   ],
   "contributes": {
+    "rootPatterns": [
+      {
+        "filetype": "ansible",
+        "patterns": [
+          "ansible.cfg",
+          ".ansible-lint"
+        ]
+      },
+      {
+        "filetype": "yaml.ansible",
+        "patterns": [
+          "ansible.cfg",
+          ".ansible-lint"
+        ]
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "coc-ansible configuration",
