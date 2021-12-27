@@ -22,11 +22,19 @@ Plug 'yaegassy/coc-ansible', {'do': 'yarn install --frozen-lockfile'}
 
 ## Note
 
-### Filetype related
+### [!! Very important !!] Filetype related
 
-The "filetype" must be `yaml.ansible` for this extension to work.
+1. The "filetype" must be `yaml.ansible` for this extension to work.
 
-If you install ansible's vim plugin, `yaml.ansible` filetype will be added automatically, which is very useful (e.g. [pearofducks/ansible-vim](https://github.com/pearofducks/ansible-vim) or [sheerun/vim-polyglot](https://github.com/sheerun/vim-polyglot)).
+   If you install ansible's vim plugin, `yaml.ansible` filetype will be added automatically, which is very useful (e.g. [pearofducks/ansible-vim](https://github.com/pearofducks/ansible-vim) or [sheerun/vim-polyglot](https://github.com/sheerun/vim-polyglot)).
+
+2. You also need to set `g:coc_filetype_map` in `.vimrc/init.vim`.
+
+   ```vim
+   let g:coc_filetype_map = {
+     \ 'yaml.ansible': 'ansible',
+     \ }
+   ```
 
 ## Requirements (Tools)
 
