@@ -56,6 +56,27 @@
   "contributes": {
     "yamlValidation": [
       {
+        "fileMatch": [
+          "execution-environment.yml"
+        ],
+        "url": "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-ee.json"
+      },
+      {
+        "fileMatch": [
+          "meta/runtime.yml"
+        ],
+        "url": "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-meta-runtime.json"
+      },
+      {
+        "fileMatch": [
+          ".ansible-navigator.yaml",
+          ".ansible-navigator.yml",
+          "ansible-navigator.yaml",
+          "ansible-navigator.yml"
+        ],
+        "url": "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-navigator.json"
+      },
+      {
         "fileMatch": "requirements.yml",
         "url": "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-requirements.json"
       },
