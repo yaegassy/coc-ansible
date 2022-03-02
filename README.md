@@ -60,7 +60,7 @@ The first time you use coc-ansible, if ansible, ansible-lint is not detected, yo
 You can also run the installation command manually.
 
 ```
-:CocComannd ansible.builtin.installRequirementsTools
+:CocCommand ansible.builtin.installRequirementsTools
 ```
 
 ## Configuration options
