@@ -70,7 +70,7 @@ You can also run the installation command manually.
 - `ansible.builtin.ansibleVersion`: Version of `ansible` for built-in install, default: `""`
 - `ansible.builtin.ansibleLintVersion`: Version of `ansible-lint` for built-in install, default: `""`
 - `ansible.builtin.yamllintVersion`: Version of `yamllint` for built-in install, default: `""`
-- `ansible.ansible.useFullyQualifiedCollectionNames`: Always use fully qualified collection names (FQCN) when inserting a module name. Disabling it will only use FQCNs when necessary, default: `true`
+- `ansible.ansible.useFullyQualifiedCollectionNames`: Always use fully qualified collection names (FQCN) when inserting a module name. Disabling it will only use FQCNs when necessary, default: `false`
 - `ansible.ansibleLint.arguments`: Command line arguments to be passed to ansible-lint, default: `""`
 - `ansible.ansibleLint.enabled`: Enable linting with ansible-lint on document open/save, default: `true`
 - `ansible.python.interpreterPath`: Path to the Python interpreter executable. Particularly important if you are using a Python virtual environment. Leave blank to use Python from PATH. **In coc-ansible, the default value is blank**, default: `""`
