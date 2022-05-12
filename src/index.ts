@@ -7,17 +7,16 @@ import {
   LanguageClientOptions,
   languages,
   ServerOptions,
+  ServiceStat,
   Thenable,
   TransportKind,
   window,
   workspace,
 } from 'coc.nvim';
-
 import fs from 'fs';
 import path from 'path';
-
-import { AnsiblePlaybookRunProvider } from './features/runner';
 import { AnsibleCodeActionProvider } from './action';
+import { AnsiblePlaybookRunProvider } from './features/runner';
 import { installLsRequirementsTools } from './installer';
 import {
   existsCmdWithHelpOpt,
@@ -131,7 +130,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   context.subscriptions.push(
     commands.registerCommand('ansible.builtin.installRequirementsTools', async () => {
-      if (client.serviceState !== 5) {
+      if (client.serviceState !== ServiceStat.Stopped) {
         await client.stop();
       }
       if (pythonCommandPaths) {
@@ -256,11 +255,8 @@ function configuration(params: ConfigurationParams, token: CancellationToken, ne
 
 async function installWrapper(pythonCommand: string, context: ExtensionContext) {
   const msg = 'Install Ansible Server requirements tools?';
-  context.workspaceState;
-
-  let ret = 0;
-  ret = await window.showQuickpick(['Yes', 'Cancel'], msg);
-  if (ret === 0) {
+  const ret = await window.showPrompt(msg);
+  if (ret) {
     let isFinished = false;
 
     try {
