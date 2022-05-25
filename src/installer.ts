@@ -39,10 +39,10 @@ export async function installLsRequirementsTools(pythonCommand: string, context:
 
   rimraf.sync(pathVenv);
   try {
-    window.showMessage(`Install Ansible Server requirements tools...`);
+    window.showInformationMessage(`Install Ansible Server requirements tools...`);
     await exec(installCmd);
     statusItem.hide();
-    window.showMessage(`Ansible Server requirements tools: installed!`);
+    window.showInformationMessage(`Ansible Server requirements tools: installed!`);
   } catch (error) {
     statusItem.hide();
     window.showErrorMessage(`Ansible Server requirements tools: install failed. | ${error}`);

@@ -10,12 +10,12 @@ export class AnsiblePlaybookRunProvider {
   private configureCommands() {
     this.context.subscriptions.push(
       commands.registerCommand('ansible.ansible-playbook.run', () => {
-        window.showMessage('Not implemented in coc-ansible');
+        window.showInformationMessage('Not implemented in coc-ansible');
       })
     );
     this.context.subscriptions.push(
       commands.registerCommand('ansible.ansible-navigator.run', () => {
-        window.showMessage('Not implemented in coc-ansible');
+        window.showInformationMessage('Not implemented in coc-ansible');
       })
     );
   }
