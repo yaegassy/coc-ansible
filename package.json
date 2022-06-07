@@ -152,6 +152,11 @@
           "default": true,
           "description": "Enable coc-ansible extension."
         },
+        "ansible.disableProgressNotifications": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable progress notifications from ansible-language-server"
+        },
         "ansible.builtin.isWithYamllint": {
           "type": "boolean",
           "default": false,

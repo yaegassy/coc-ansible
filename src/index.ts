@@ -180,6 +180,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   const clientOptions: LanguageClientOptions = {
     documentSelector,
+    disabledFeatures: getLanguageClientDisabledFeatures(),
     middleware: {
       workspace: {
         configuration,
@@ -288,4 +289,14 @@ async function installWrapper(pythonCommand: string, context: ExtensionContext) 
   } else {
     return;
   }
+}
+
+function getLanguageClientDisabledFeatures() {
+  const r: string[] = [];
+  if (getConfigDisableProgressNotifications()) r.push('progress');
+  return r;
+}
+
+function getConfigDisableProgressNotifications() {
+  return workspace.getConfiguration('ansible').get<boolean>('disableProgressNotifications', false);
 }

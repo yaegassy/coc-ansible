@@ -66,6 +66,7 @@ You can also run the installation command manually.
 ## Configuration options
 
 - `ansible.enable`: Enable coc-ansible extension, default: `true`
+- `ansible.disableProgressNotifications`: Disable progress notifications from ansible-language-server, default: `false`
 - `ansible.builtin.isWithYamllint`: Whether to install yamllint the built-in installer, default: `false`
 - `ansible.builtin.ansibleVersion`: Version of `ansible` for built-in install, default: `""`
 - `ansible.builtin.ansibleLintVersion`: Version of `ansible-lint` for built-in install, default: `""`
