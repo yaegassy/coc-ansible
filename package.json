@@ -281,6 +281,18 @@
             }
           }
         },
+        "ansible.completion.provideRedirectModules": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": true,
+          "description": "Toggle redirected module provider when completing modules."
+        },
+        "ansible.completion.provideModuleOptionAliases": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": true,
+          "description": "Toggle alias provider when completing module options."
+        },
         "ansible.python.activationScript": {
           "scope": "resource",
           "type": "string",
