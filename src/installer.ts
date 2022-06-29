@@ -2,8 +2,8 @@ import { ExtensionContext, window, workspace } from 'coc.nvim';
 
 import path from 'path';
 
-import rimraf from 'rimraf';
 import child_process from 'child_process';
+import rimraf from 'rimraf';
 import util from 'util';
 
 const exec = util.promisify(child_process.exec);
