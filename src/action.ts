@@ -43,7 +43,7 @@ export class AnsibleCodeActionProvider implements CodeActionProvider {
         context.diagnostics.forEach((d) => {
           if (d.source === 'Ansible') {
             existsAnsibleDiagnostics = true;
-            const ruleId = this.parseRuleId(d.message);
+            const ruleId = d.message.split('\n')[0];
             if (ruleId) ruleIds.push(ruleId);
           }
         });
@@ -80,20 +80,5 @@ export class AnsibleCodeActionProvider implements CodeActionProvider {
       (r.start.line + 1 === r.end.line && r.start.character === 0 && r.end.character === 0) ||
       (r.start.line === r.end.line && r.start.character === 0)
     );
-  }
-
-  public parseRuleId(s: string): string | undefined {
-    let r: string | undefined;
-    const l = s.split('\n');
-
-    const p = /^(?:\[(?<ruleId>.*?)\].*)$/;
-    const m = l[0].match(p);
-    if (m) {
-      if (m.groups?.ruleId) {
-        r = m.groups.ruleId;
-      }
-    }
-
-    return r;
   }
 }
