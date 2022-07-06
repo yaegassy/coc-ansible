@@ -32,7 +32,6 @@ let pythonInterpreterPath: string;
 let existsAnsibleCmd: boolean;
 let existsAnsibleLintCmd: boolean;
 let ansibleLintModule: boolean;
-let forceBuiltinTools: boolean;
 
 // MEMO: client logging
 const outputChannel = window.createOutputChannel('ansible-client');
