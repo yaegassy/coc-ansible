@@ -32,6 +32,7 @@ let pythonInterpreterPath: string;
 let existsAnsibleCmd: boolean;
 let existsAnsibleLintCmd: boolean;
 let ansibleLintModule: boolean;
+let forceBuiltinTools: boolean;
 
 // MEMO: client logging
 const outputChannel = window.createOutputChannel('ansible-client');
@@ -54,6 +55,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   const ansiblePath = extensionConfig.get('ansible.path', 'ansible');
   const ansibleLintPath = extensionConfig.get('ansibleLint.path', 'ansible-lint');
+  const forceBuiltinTools = extensionConfig.get('builtin.force', false);
 
   pythonInterpreterPath = extensionConfig.get('python.interpreterPath', '');
 
@@ -66,13 +68,14 @@ export async function activate(context: ExtensionContext): Promise<void> {
   outputChannel.appendLine(`pythonInterpreterPath(custom): ${pythonInterpreterPath ? pythonInterpreterPath : 'None'}`);
   outputChannel.appendLine(`existsAnsibleCmd: ${existsAnsibleCmd}`);
   outputChannel.appendLine(`existsAnsibleLintCmd: ${existsAnsibleLintCmd}`);
+  outputChannel.appendLine(`forceBuiltinTools: ${forceBuiltinTools}`);
 
   let existsExtAnsibleCmd = false;
   let ansibleBuiltinPath = '';
   let ansibleLintBuiltinPath = '';
 
   if (!pythonInterpreterPath) {
-    if (!existsAnsibleCmd || !existsAnsibleLintCmd) {
+    if (!existsAnsibleCmd || !existsAnsibleLintCmd || forceBuiltinTools) {
       ansibleBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible');
       ansibleLintBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible-lint');
       if (ansibleBuiltinPath) {
