@@ -70,6 +70,7 @@ You can also run the installation command manually.
 - `ansible.builtin.isWithYamllint`: Whether to install yamllint the built-in installer, default: `false`
 - `ansible.builtin.ansibleVersion`: Version of `ansible` for built-in install, default: `""`
 - `ansible.builtin.ansibleLintVersion`: Version of `ansible-lint` for built-in install, default: `""`
+- `ansible.builtin.force`: Whether to force builtin tools instead those in the PATH, default: `false`
 - `ansible.builtin.yamllintVersion`: Version of `yamllint` for built-in install, default: `""`
 - `ansible.ansible.useFullyQualifiedCollectionNames`: Always use fully qualified collection names (FQCN) when inserting a module name. Disabling it will only use FQCNs when necessary, default: `true`
 - `ansible.ansibleLint.arguments`: Command line arguments to be passed to ansible-lint, default: `""`
