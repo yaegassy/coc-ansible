@@ -172,6 +172,11 @@
           "default": "",
           "description": "Version of ansible-lint for built-in install."
         },
+        "ansible.builtin.force": {
+          "type": "string",
+          "default": "",
+          "description": "Whether to force builtin tools instead those in the PATH"
+        },
         "ansible.builtin.yamllintVersion": {
           "type": "string",
           "default": "",
