@@ -50,7 +50,7 @@ class ShowWebDocumentationCodeActionProvider implements CodeActionProvider {
     }
     const codeActions: CodeAction[] = [];
 
-    /** Show web documentation for ${r} */
+    /** Show web documentation for [ruleId] */
     if (this.lineRange(range) && context.diagnostics.length > 0) {
       const line = doc.getline(range.start.line);
       if (line && line.length) {
