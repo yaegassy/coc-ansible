@@ -1,13 +1,10 @@
 import {
   CancellationToken,
-  commands,
   ConfigurationParams,
   ExtensionContext,
   LanguageClient,
   LanguageClientOptions,
-  languages,
   ServerOptions,
-  ServiceStat,
   Thenable,
   TransportKind,
   window,
@@ -15,9 +12,7 @@ import {
 } from 'coc.nvim';
 import fs from 'fs';
 import path from 'path';
-import { AnsibleCodeActionProvider } from './action';
-import { AnsiblePlaybookRunProvider } from './features/runner';
-import { installLsRequirementsTools } from './installer';
+import { installWrapper } from './installer';
 import {
   existsCmdWithHelpOpt,
   existsPythonImportModule,
@@ -25,6 +20,10 @@ import {
   getBuiltinToolPath,
   getCurrentPythonPath,
 } from './tool';
+
+import * as ignoringRulesCodeActionFeature from './actions/ignoringRules';
+import * as builtinInstallRequirementsToolsCommandFeature from './commands/builtinInstallRequirementsTools';
+import * as serverRestartCommandFeature from './commands/serverRestart';
 
 let client: LanguageClient;
 let extensionStoragePath: string;
@@ -47,8 +46,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
   }
 
   outputChannel.appendLine(`${'#'.repeat(10)} ansible-client\n`);
-
-  new AnsiblePlaybookRunProvider(context);
 
   const pythonCommandPaths = getCurrentPythonPath(extensionConfig);
 
@@ -130,30 +127,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
     }
   }
 
-  context.subscriptions.push(
-    commands.registerCommand('ansible.builtin.installRequirementsTools', async () => {
-      if (client.serviceState !== ServiceStat.Stopped) {
-        await client.stop();
-      }
-      if (pythonCommandPaths) {
-        await installWrapper(pythonCommandPaths.real, context);
-      }
-      client.start();
-    })
-  );
-
-  context.subscriptions.push(
-    commands.registerCommand('ansible.server.restart', async () => {
-      // Refresh the diagnostics by setting undefined for coc.nvim
-      const { document } = await workspace.getCurrentState();
-      client.diagnostics?.set(document.uri, undefined);
-
-      // Stop and Start
-      await client.stop();
-      client.start();
-    })
-  );
-
   let serverModule: string;
   const devServerPath = extensionConfig.get<string>('dev.serverPath', '');
   if (devServerPath && devServerPath !== '' && fs.existsSync(devServerPath)) {
@@ -193,8 +166,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
   client = new LanguageClient('ansibleServer', 'Ansible Server', serverOptions, clientOptions);
   client.start();
 
-  const actionProvider = new AnsibleCodeActionProvider(outputChannel);
-  context.subscriptions.push(languages.registerCodeActionProvider(documentSelector, actionProvider, 'ansible'));
+  if (pythonCommandPaths) builtinInstallRequirementsToolsCommandFeature.activate(context, pythonCommandPaths, client);
+  serverRestartCommandFeature.activate(context, client);
+  ignoringRulesCodeActionFeature.activate(context, outputChannel);
 }
 
 export function deactivate(): Thenable<void> | undefined {
@@ -254,43 +228,6 @@ function configuration(params: ConfigurationParams, token: CancellationToken, ne
   }
 
   return next(params, token);
-}
-
-async function installWrapper(pythonCommand: string, context: ExtensionContext) {
-  const msg = 'Install Ansible Server requirements tools?';
-  const ret = await window.showPrompt(msg);
-  if (ret) {
-    let isFinished = false;
-
-    try {
-      // Timer
-      const start = new Date();
-      let lap: Date;
-
-      const timerId = setInterval(() => {
-        lap = new Date();
-        window.showWarningMessage(
-          `ansible | Install requirements tools... (${Math.floor((lap.getTime() - start.getTime()) / 1000)} sec)`
-        );
-
-        if (isFinished) {
-          const stop = new Date();
-          // Complete message
-          window.showWarningMessage(
-            `ansible | Installation is complete! (${Math.floor((stop.getTime() - start.getTime()) / 1000)} sec)`
-          );
-          clearInterval(timerId);
-        }
-      }, 2000);
-
-      await installLsRequirementsTools(pythonCommand, context);
-      isFinished = true;
-    } catch (e) {
-      return;
-    }
-  } else {
-    return;
-  }
 }
 
 function getLanguageClientDisabledFeatures() {

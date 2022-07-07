@@ -1,18 +1,14 @@
 import { WorkspaceConfiguration } from 'coc.nvim';
 
 import child_process from 'child_process';
-import util from 'util';
-
 import fs from 'fs';
 import path from 'path';
+import util from 'util';
 import which from 'which';
 
-const exec = util.promisify(child_process.exec);
+import type { PythonPaths } from './types';
 
-type PythonPaths = {
-  env: string;
-  real: string;
-};
+const exec = util.promisify(child_process.exec);
 
 export function getCurrentPythonPath(config: WorkspaceConfiguration): PythonPaths | undefined {
   let pythonPaths: PythonPaths | undefined;
