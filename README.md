@@ -114,7 +114,7 @@ In the line with diagnostic message, enter the mapped key (e.g. `ga`) and you wi
 **Actions**:
 
 - `Ignoring rules for current line (# noqa [ruleId])` | [DEMO](https://github.com/yaegassy/coc-ansible/pull/13)
-- `Show web documentation for [ruleId]`
+- `Show web documentation for [ruleId]` | [DEMO](https://github.com/yaegassy/coc-ansible/pull/21#issue-1296813716)
 
 ## Thanks
 
