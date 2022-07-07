@@ -99,13 +99,6 @@ You can also run the installation command manually.
 
 ---
 
-**Not implementing it!**:
-
-> I have not implemented this because I do not think it is desirable to run commands from Vim that may be executed for a long time.
-
-- [Not implement] `ansible.ansible-playbook.run`: Run playbook via `ansible-playbook`
-- [Not implement] `ansible.ansible-navigator.run`: Run playbook via `ansible-navigator run`
-
 ## Code Actions
 
 **Example key mapping (Code Action related)**:

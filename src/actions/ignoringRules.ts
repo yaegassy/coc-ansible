@@ -2,6 +2,8 @@ import {
   CodeAction,
   CodeActionContext,
   CodeActionProvider,
+  DocumentSelector,
+  ExtensionContext,
   languages,
   OutputChannel,
   Range,
@@ -10,7 +12,22 @@ import {
   workspace,
 } from 'coc.nvim';
 
-export class AnsibleCodeActionProvider implements CodeActionProvider {
+export function activate(context: ExtensionContext, outputChannel: OutputChannel) {
+  const documentSelector: DocumentSelector = [
+    { scheme: 'file', language: 'ansible' },
+    { scheme: 'file', language: 'yaml.ansible' },
+  ];
+
+  context.subscriptions.push(
+    languages.registerCodeActionProvider(
+      documentSelector,
+      new IgnoringRulesCodeActionProvider(outputChannel),
+      'ansible'
+    )
+  );
+}
+
+class IgnoringRulesCodeActionProvider implements CodeActionProvider {
   private readonly source = 'ansible';
   private diagnosticCollection = languages.createDiagnosticCollection(this.source);
   private outputChannel: OutputChannel;

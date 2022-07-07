@@ -1,8 +1,7 @@
 import { ExtensionContext, window, workspace } from 'coc.nvim';
 
-import path from 'path';
-
 import child_process from 'child_process';
+import path from 'path';
 import rimraf from 'rimraf';
 import util from 'util';
 
@@ -60,4 +59,41 @@ function _installToolVersionStr(name: string, version?: string): string {
   }
 
   return installStr;
+}
+
+export async function installWrapper(pythonCommand: string, context: ExtensionContext) {
+  const msg = 'Install Ansible Server requirements tools?';
+  const ret = await window.showPrompt(msg);
+  if (ret) {
+    let isFinished = false;
+
+    try {
+      // Timer
+      const start = new Date();
+      let lap: Date;
+
+      const timerId = setInterval(() => {
+        lap = new Date();
+        window.showWarningMessage(
+          `ansible | Install requirements tools... (${Math.floor((lap.getTime() - start.getTime()) / 1000)} sec)`
+        );
+
+        if (isFinished) {
+          const stop = new Date();
+          // Complete message
+          window.showWarningMessage(
+            `ansible | Installation is complete! (${Math.floor((stop.getTime() - start.getTime()) / 1000)} sec)`
+          );
+          clearInterval(timerId);
+        }
+      }, 2000);
+
+      await installLsRequirementsTools(pythonCommand, context);
+      isFinished = true;
+    } catch (e) {
+      return;
+    }
+  } else {
+    return;
+  }
 }
