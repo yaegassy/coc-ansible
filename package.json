@@ -335,14 +335,6 @@
       {
         "command": "ansible.server.restart",
         "title": "Restart ansible language server"
-      },
-      {
-        "command": "ansible.ansible-playbook.run",
-        "title": "Run playbook via `ansible-playbook`"
-      },
-      {
-        "command": "ansible.ansible-navigator.run",
-        "title": "Run playbook via `ansible-navigator run`"
       }
     ]
   },

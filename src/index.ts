@@ -22,6 +22,7 @@ import {
 } from './tool';
 
 import * as ignoringRulesCodeActionFeature from './actions/ignoringRules';
+import * as showWebDocumentationCodeActionFeature from './actions/showWebDocumentation';
 import * as builtinInstallRequirementsToolsCommandFeature from './commands/builtinInstallRequirementsTools';
 import * as serverRestartCommandFeature from './commands/serverRestart';
 
@@ -169,6 +170,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   if (pythonCommandPaths) builtinInstallRequirementsToolsCommandFeature.activate(context, pythonCommandPaths, client);
   serverRestartCommandFeature.activate(context, client);
   ignoringRulesCodeActionFeature.activate(context, outputChannel);
+  showWebDocumentationCodeActionFeature.activate(context, outputChannel);
 }
 
 export function deactivate(): Thenable<void> | undefined {
