@@ -78,6 +78,8 @@ You can also run the installation command manually.
 - `ansible.completion.provideRedirectModules`: Toggle redirected module provider when completing modules, default: `true`
 - `ansible.completion.provideModuleOptionAliases`: Toggle alias provider when completing module options, default: `true`
 - `ansible.python.interpreterPath`: Path to the Python interpreter executable. Particularly important if you are using a Python virtual environment. Leave blank to use Python from PATH. **In coc-ansible, the default value is blank**, default: `""`
+- `ansible.ansibleDoc.path`: Path to the ansible-doc executable, default: `ansible-doc`
+- `ansible.ansibleDoc.enableSplitRight`: Use vertical belowright for ansible-doc terminal window, default: `true`
 - `ansible.ansibleNavigator.path`: Points to the ansible-navigator executable, default: `"ansible-navigator"`
 - `ansible.dev.serverPath`: Absolute path to ansible language server module. If it is not set, use the extention's server module. (For develop and check), default: `""`
 - `ansibleServer.trace.server`: Traces the communication between coc.nvim and the ansible language server, default: `"off"`
@@ -96,6 +98,8 @@ You can also run the installation command manually.
       - `~/AppData/Local/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/Scripts/yamllint.exe`
   - **[Note]** `ansible` is a very large tool and will take some time to install
 - `ansible.server.restart`: Restart ansible language server
+- `ansible.ansbileDoc.showInfo`: Run the `ansible-doc` command in a terminal window with various options to display information about the plugins
+- `ansible.ansbileDoc.showSnippets`: Run the `ansible-doc` command in a terminal window with various options to display a snippets of the plugins.
 
 ---
 

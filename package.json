@@ -212,6 +212,17 @@
           "default": "ansible-lint",
           "description": "Path to the ansible-lint executable."
         },
+        "ansible.ansibleDoc.path": {
+          "scope": "resource",
+          "type": "string",
+          "default": "ansible-doc",
+          "description": "Path to the ansible-doc executable."
+        },
+        "ansible.ansibleDoc.enableSplitRight": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use vertical belowright for ansible-doc terminal window."
+        },
         "ansible.ansibleNavigator.path": {
           "default": "ansible-navigator",
           "description": "Points to the ansible-navigator executable.",
@@ -335,6 +346,14 @@
       {
         "command": "ansible.server.restart",
         "title": "Restart ansible language server"
+      },
+      {
+        "command": "ansible.ansbileDoc.showInfo",
+        "title": "Run the `ansible-doc` command in a terminal window with various options to display information about the plugins"
+      },
+      {
+        "command": "ansible.ansbileDoc.showSnippets",
+        "title": "Run the `ansible-doc` command in a terminal window with various options to display a snippets of the plugins."
       }
     ]
   },

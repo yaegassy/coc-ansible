@@ -117,6 +117,19 @@ export function getBuiltinToolPath(extensionStoragePath: string, toolName: strin
     }
   }
 
+  if (toolName === 'ansible-doc') {
+    if (
+      fs.existsSync(path.join(extensionStoragePath, 'ansible', 'venv', 'Scripts', 'ansible-doc.exe')) ||
+      fs.existsSync(path.join(extensionStoragePath, 'ansible', 'venv', 'bin', 'ansible-doc'))
+    ) {
+      if (process.platform === 'win32') {
+        toolPath = path.join(extensionStoragePath, 'ansible', 'venv', 'Scripts', 'ansible-doc.exe');
+      } else {
+        toolPath = path.join(extensionStoragePath, 'ansible', 'venv', 'bin', 'ansible-doc');
+      }
+    }
+  }
+
   return toolPath;
 }
 
