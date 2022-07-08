@@ -23,6 +23,8 @@ import {
 
 import * as ignoringRulesCodeActionFeature from './actions/ignoringRules';
 import * as showWebDocumentationCodeActionFeature from './actions/showWebDocumentation';
+import * as ansibleDocShowInfoCommandFeature from './commands/ansibleDocShowInfo';
+import * as ansibleDocShowSnippetsCommandFeature from './commands/ansibleDocShowSnippets';
 import * as builtinInstallRequirementsToolsCommandFeature from './commands/builtinInstallRequirementsTools';
 import * as serverRestartCommandFeature from './commands/serverRestart';
 
@@ -31,7 +33,8 @@ let extensionStoragePath: string;
 let pythonInterpreterPath: string;
 let existsAnsibleCmd: boolean;
 let existsAnsibleLintCmd: boolean;
-let ansibleLintModule: boolean;
+let existsAnsibleDocCmd: boolean;
+let existsAnsibleLintModule: boolean;
 
 // MEMO: client logging
 const outputChannel = window.createOutputChannel('ansible-client');
@@ -52,12 +55,14 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   const ansiblePath = extensionConfig.get('ansible.path', 'ansible');
   const ansibleLintPath = extensionConfig.get('ansibleLint.path', 'ansible-lint');
+  const ansibleDocPath = extensionConfig.get('ansibleDoc.path', 'ansible-doc');
   const forceBuiltinTools = extensionConfig.get('builtin.force', false);
 
   pythonInterpreterPath = extensionConfig.get('python.interpreterPath', '');
 
   existsAnsibleCmd = await existsCmdWithHelpOpt(ansiblePath);
   existsAnsibleLintCmd = await existsCmdWithHelpOpt(ansibleLintPath);
+  existsAnsibleDocCmd = await existsCmdWithHelpOpt(ansibleDocPath);
 
   outputChannel.appendLine(`==== environment ====\n`);
   outputChannel.appendLine(`pythonCommandPaths(env): ${pythonCommandPaths ? pythonCommandPaths.env : 'None'}`);
@@ -65,22 +70,26 @@ export async function activate(context: ExtensionContext): Promise<void> {
   outputChannel.appendLine(`pythonInterpreterPath(custom): ${pythonInterpreterPath ? pythonInterpreterPath : 'None'}`);
   outputChannel.appendLine(`existsAnsibleCmd: ${existsAnsibleCmd}`);
   outputChannel.appendLine(`existsAnsibleLintCmd: ${existsAnsibleLintCmd}`);
+  outputChannel.appendLine(`existsAnsibleDocCmd: ${existsAnsibleDocCmd}`);
   outputChannel.appendLine(`forceBuiltinTools: ${forceBuiltinTools}`);
 
   let existsExtAnsibleCmd = false;
   let ansibleBuiltinPath = '';
   let ansibleLintBuiltinPath = '';
+  let ansibleDocBuiltinPath = '';
 
   if (!pythonInterpreterPath) {
     if (!existsAnsibleCmd || !existsAnsibleLintCmd || forceBuiltinTools) {
       ansibleBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible');
       ansibleLintBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible-lint');
+      ansibleDocBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible-doc');
       if (ansibleBuiltinPath) {
         existsExtAnsibleCmd = true;
 
         outputChannel.appendLine(`\n==== use builtin tool ====\n`);
         outputChannel.appendLine(`ansibleBuiltinPath: ${ansibleBuiltinPath}`);
         outputChannel.appendLine(`ansibleLintBuiltinPath: ${ansibleLintBuiltinPath ? ansibleLintBuiltinPath : 'None'}`);
+        outputChannel.appendLine(`ansibleDocBuiltinPath: ${ansibleDocBuiltinPath ? ansibleDocBuiltinPath : 'None'}`);
       }
     }
 
@@ -92,6 +101,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
         // Exists check
         ansibleBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible');
         ansibleLintBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible-lint');
+        ansibleDocBuiltinPath = getBuiltinToolPath(extensionStoragePath, 'ansible-doc');
         if (ansibleBuiltinPath) {
           existsExtAnsibleCmd = true;
 
@@ -100,6 +110,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
           outputChannel.appendLine(
             `ansibleLintBuiltinPath: ${ansibleLintBuiltinPath ? ansibleLintBuiltinPath : 'None'}`
           );
+          outputChannel.appendLine(`ansibleDocBuiltinPath: ${ansibleDocBuiltinPath ? ansibleDocBuiltinPath : 'None'}`);
         }
       } else {
         window.showErrorMessage('python3/python command not found');
@@ -116,11 +127,11 @@ export async function activate(context: ExtensionContext): Promise<void> {
   // If "pythonInterpreterPath" is set, check the exists of the module
   if (pythonInterpreterPath) {
     const ansibleModule = await existsPythonImportModule(pythonInterpreterPath, 'ansible');
-    ansibleLintModule = await existsPythonImportModule(pythonInterpreterPath, 'ansiblelint');
+    existsAnsibleLintModule = await existsPythonImportModule(pythonInterpreterPath, 'ansiblelint');
 
     outputChannel.appendLine(`\n==== use pythonInterpreterPath module ====\n`);
     outputChannel.appendLine(`ansibleModule: ${ansibleModule ? ansibleModule : 'None'}`);
-    outputChannel.appendLine(`ansibleLintModule: ${ansibleLintModule ? ansibleLintModule : 'None'}`);
+    outputChannel.appendLine(`ansibleLintModule: ${existsAnsibleLintModule ? existsAnsibleLintModule : 'None'}`);
 
     if (!ansibleModule) {
       window.showErrorMessage('Exit because "ansible" does not exist.');
@@ -167,8 +178,20 @@ export async function activate(context: ExtensionContext): Promise<void> {
   client = new LanguageClient('ansibleServer', 'Ansible Server', serverOptions, clientOptions);
   client.start();
 
-  if (pythonCommandPaths) builtinInstallRequirementsToolsCommandFeature.activate(context, pythonCommandPaths, client);
+  // commands
   serverRestartCommandFeature.activate(context, client);
+  if (pythonCommandPaths) {
+    builtinInstallRequirementsToolsCommandFeature.activate(context, pythonCommandPaths, client);
+  }
+  if (existsAnsibleCmd) {
+    ansibleDocShowInfoCommandFeature.activate(context, ansibleDocPath);
+    ansibleDocShowSnippetsCommandFeature.activate(context, ansibleDocPath);
+  } else if (ansibleDocBuiltinPath) {
+    ansibleDocShowInfoCommandFeature.activate(context, ansibleDocBuiltinPath);
+    ansibleDocShowSnippetsCommandFeature.activate(context, ansibleDocBuiltinPath);
+  }
+
+  // code actions
   ignoringRulesCodeActionFeature.activate(context, outputChannel);
   showWebDocumentationCodeActionFeature.activate(context, outputChannel);
 }
@@ -214,7 +237,7 @@ function configuration(params: ConfigurationParams, token: CancellationToken, ne
         extensionConfig['python']['interpreterPath'] = getBuiltinPythonPath(extensionStoragePath);
       } else if (pythonInterpreterPath) {
         // [patch] If "ansible-lint" is not found, this feature will be set to false.
-        if (!ansibleLintModule) {
+        if (!existsAnsibleLintModule) {
           extensionConfig['ansibleLint']['enabled'] = false;
         }
       } else {
