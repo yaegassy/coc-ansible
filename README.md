@@ -86,6 +86,12 @@ You can also run the installation command manually.
 
 ## Commands
 
+**Command List**:
+
+> :CocCommand [CommandName]
+>
+> **e.g.** :CocCommand ansible.server.restart
+
 - `ansible.builtin.installRequirementsTools`: Install `ansible`, `ansible-lint` and `yamllint` (optional) with extension's venv
   - It will be installed in this path:
     - Mac/Linux:
@@ -98,10 +104,15 @@ You can also run the installation command manually.
       - `~/AppData/Local/coc/extensions/@yaegassy/coc-ansible-data/ansible/venv/Scripts/yamllint.exe`
   - **[Note]** `ansible` is a very large tool and will take some time to install
 - `ansible.server.restart`: Restart ansible language server
-- `ansible.ansbileDoc.showInfo`: Run the `ansible-doc` command in a terminal window with various options to display information about the plugins
-- `ansible.ansbileDoc.showSnippets`: Run the `ansible-doc` command in a terminal window with various options to display a snippets of the plugins.
+- `ansible.ansbileDoc.showInfo`: Run the `ansible-doc` command in a terminal window with various options to display information about the plugins | [DEMO](https://github.com/yaegassy/coc-ansible/pull/22#issuecomment-1178586815)
+- `ansible.ansbileDoc.showSnippets`: Run the `ansible-doc` command in a terminal window with various options to display a snippets of the plugins | [DEMO](https://github.com/yaegassy/coc-ansible/pull/22#issuecomment-1178587359)
 
----
+**Example of command key mapping**:
+
+```vim
+" Quickly view a list of all coc.nvim commands
+nnoremap <silent> <C-p> :<C-u>CocCommand<CR>
+```
 
 ## Code Actions
 
