@@ -59,7 +59,8 @@ class ShowWebDocumentationCodeActionProvider implements CodeActionProvider {
         context.diagnostics.forEach((d) => {
           if (d.source === 'Ansible') {
             existsAnsibleDiagnostics = true;
-            const ruleId = d.message.split('\n')[0];
+            // e.g. fqcn-builtins, risky-file-permissions, yaml[trailing-spaces], schema[tasks]
+            const ruleId = d.message.split('\n')[0].split('[')[0];
             if (ruleId) ruleIds.push(ruleId);
           }
         });
