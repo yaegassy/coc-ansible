@@ -358,6 +358,6 @@
     ]
   },
   "dependencies": {
-    "@ansible/ansible-language-server": "^0.9.0"
+    "@ansible/ansible-language-server": "^0.10.0"
   }
 }
