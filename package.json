@@ -348,6 +348,10 @@
         "title": "Restart ansible language server"
       },
       {
+        "command": "ansible.server.showMetaData",
+        "title": "Show ansible-metadata for ansible language server"
+      },
+      {
         "command": "ansible.ansbileDoc.showInfo",
         "title": "Run the `ansible-doc` command in a terminal window with various options to display information about the plugins"
       },
