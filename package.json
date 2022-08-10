@@ -352,6 +352,10 @@
         "title": "Show ansible-metadata for ansible language server"
       },
       {
+        "command": "ansible.server.resyncAnsibleInventory",
+        "title": "Resync Ansible Inventory"
+      },
+      {
         "command": "ansible.ansbileDoc.showInfo",
         "title": "Run the `ansible-doc` command in a terminal window with various options to display information about the plugins"
       },

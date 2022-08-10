@@ -105,6 +105,7 @@ You can also run the installation command manually.
   - **[Note]** `ansible` is a very large tool and will take some time to install
 - `ansible.server.restart`: Restart ansible language server
 - `ansible.server.showMetaData`: Show ansible-metadata for ansible language server
+- `ansible.server.resyncAnsibleInventory`: Resync Ansible Inventory
 - `ansible.ansbileDoc.showInfo`: Run the `ansible-doc` command in a terminal window with various options to display information about the plugins | [DEMO](https://github.com/yaegassy/coc-ansible/pull/22#issuecomment-1178586815)
 - `ansible.ansbileDoc.showSnippets`: Run the `ansible-doc` command in a terminal window with various options to display a snippets of the plugins | [DEMO](https://github.com/yaegassy/coc-ansible/pull/22#issuecomment-1178587359)
 

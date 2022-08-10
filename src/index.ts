@@ -27,6 +27,7 @@ import * as ansibleDocShowInfoCommandFeature from './commands/ansibleDocShowInfo
 import * as ansibleDocShowSnippetsCommandFeature from './commands/ansibleDocShowSnippets';
 import * as builtinInstallRequirementsToolsCommandFeature from './commands/builtinInstallRequirementsTools';
 import * as serverRestartCommandFeature from './commands/serverRestart';
+import * as serverResyncAnsibleInventoryCommandFeature from './commands/serverResyncAnsibleInventory';
 import * as serverShowMetaDataCommandFeature from './commands/serverShowMetaData';
 
 let client: LanguageClient;
@@ -182,6 +183,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   // commands
   serverRestartCommandFeature.activate(context, client);
   serverShowMetaDataCommandFeature.activate(context, client);
+  serverResyncAnsibleInventoryCommandFeature.activate(context, client);
   if (pythonCommandPaths) {
     builtinInstallRequirementsToolsCommandFeature.activate(context, pythonCommandPaths, client);
   }
