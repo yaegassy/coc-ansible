@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@ansible/ansible-language-server@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@ansible/ansible-language-server/-/ansible-language-server-0.10.0.tgz#7734f50190b203528c5adc2ec4614790a28537d3"
-  integrity sha512-Yl3x69VrO7HaL1OtILNov9XwM8mD7vSBmgr+stTrDfPuxRE9OtqxKtjrAjWf3dYxqlAoSscDwGbc1OQ1NwlqgA==
+"@ansible/ansible-language-server@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@ansible/ansible-language-server/-/ansible-language-server-0.10.1.tgz#40f9830b531271449d5e1c2d6bafc3face9ec734"
+  integrity sha512-xGRqhS1CVG8lqB2HgRd3KlQqawFQThIeB0C/+5Fb2lv6KmgGBc5ZQNokZfU8WxawXMdQpVi0FkUmzY0coqCNlQ==
   dependencies:
     "@flatten-js/interval-tree" "^1.0.18"
     glob "^8.0.1"
