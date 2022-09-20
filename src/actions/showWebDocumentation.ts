@@ -68,7 +68,7 @@ class ShowWebDocumentationCodeActionProvider implements CodeActionProvider {
         if (existsAnsibleDiagnostics) {
           ruleIds.forEach((r) => {
             const title = `Show web documentation for ${r}`;
-            const url = `https://ansible-lint.readthedocs.io/en/latest/default_rules/#${r}`;
+            const url = `https://ansible-lint.readthedocs.io/rules/${r}/`;
 
             const command = {
               title: '',
