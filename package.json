@@ -34,7 +34,7 @@
     "semi": true
   },
   "devDependencies": {
-    "@types/node": "^16.11.62",
+    "@types/node": "^16.11.64",
     "@types/rimraf": "^3.0.2",
     "@types/which": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
