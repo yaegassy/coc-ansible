@@ -195,23 +195,41 @@
           "default": true,
           "description": "Always use fully qualified collection names (FQCN) when inserting a module name. Disabling it will only use FQCNs when necessary."
         },
-        "ansible.ansibleLint.arguments": {
+        "ansible.python.interpreterPath": {
           "scope": "resource",
           "type": "string",
           "default": "",
-          "description": "Command line arguments to be passed to ansible-lint."
+          "description": "Path to the python/python3 executable. This settings may be used to make the extension work with ansible and ansible-lint installations in a python virtual environment"
         },
-        "ansible.ansibleLint.enabled": {
+        "ansible.python.activationScript": {
+          "scope": "resource",
+          "type": "string",
+          "default": "",
+          "description": "Path to the virtual environment activation script. Use only if you have a custom activation script. It will be sourced using bash before executing Ansible commands. When set, the Interpreter Path setting is ignored."
+        },
+        "ansible.validation.enabled": {
           "scope": "resource",
           "type": "boolean",
           "default": true,
-          "description": "Enable linting with ansible-lint on document open/save."
+          "description": "Toggle validation provider. If enabled and ansible-lint is disabled, validation falls back to ansible-playbook --syntax-check."
         },
-        "ansible.ansibleLint.path": {
+        "ansible.validation.lint.enabled": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": true,
+          "description": "Toggle usage of ansible-lint."
+        },
+        "ansible.validation.lint.path": {
           "scope": "resource",
           "type": "string",
           "default": "ansible-lint",
           "description": "Path to the ansible-lint executable."
+        },
+        "ansible.validation.lint.arguments": {
+          "scope": "resource",
+          "type": "string",
+          "default": "",
+          "description": "Optional command line arguments to be appended to ansible-lint invocation."
         },
         "ansible.ansibleDoc.path": {
           "scope": "resource",
@@ -310,18 +328,6 @@
           "default": true,
           "description": "Toggle alias provider when completing module options."
         },
-        "ansible.python.activationScript": {
-          "scope": "resource",
-          "type": "string",
-          "default": "",
-          "description": "Path to the virtual environment activation script. Use only if you have a custom activation script. It will be sourced using bash before executing Ansible commands. When set, the Interpreter Path setting is ignored."
-        },
-        "ansible.python.interpreterPath": {
-          "scope": "resource",
-          "type": "string",
-          "default": "",
-          "description": "Path to the Python interpreter executable. Particularly important if you are using a Python virtual environment. Leave blank to use Python from PATH."
-        },
         "ansible.dev.serverPath": {
           "type": "string",
           "default": "",
@@ -367,6 +373,6 @@
     ]
   },
   "dependencies": {
-    "@ansible/ansible-language-server": "^0.10.3"
+    "@ansible/ansible-language-server": "^1.0.0"
   }
 }

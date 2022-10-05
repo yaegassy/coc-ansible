@@ -73,11 +73,12 @@ You can also run the installation command manually.
 - `ansible.builtin.force`: Whether to force builtin tools instead those in the PATH, default: `false`
 - `ansible.builtin.yamllintVersion`: Version of `yamllint` for built-in install, default: `""`
 - `ansible.ansible.useFullyQualifiedCollectionNames`: Always use fully qualified collection names (FQCN) when inserting a module name. Disabling it will only use FQCNs when necessary, default: `true`
-- `ansible.ansibleLint.arguments`: Command line arguments to be passed to ansible-lint, default: `""`
-- `ansible.ansibleLint.enabled`: Enable linting with ansible-lint on document open/save, default: `true`
+- `ansible.python.interpreterPath`: Path to the python/python3 executable. This settings may be used to make the extension work with ansible and ansible-lint installations in a python virtual environment, default: `""`
+- `ansible.validation.enabled`: Toggle validation provider. If enabled and ansible-lint is disabled, validation falls back to ansible-playbook --syntax-check, default: `true`
+- `ansible.validation.lint.enabled`: Toggle usage of ansible-lint, default: `true`
+- `ansible.validation.lint.arguments`: Optional command line arguments to be appended to ansible-lint invocation, default `""`
 - `ansible.completion.provideRedirectModules`: Toggle redirected module provider when completing modules, default: `true`
 - `ansible.completion.provideModuleOptionAliases`: Toggle alias provider when completing module options, default: `true`
-- `ansible.python.interpreterPath`: Path to the Python interpreter executable. Particularly important if you are using a Python virtual environment. Leave blank to use Python from PATH. **In coc-ansible, the default value is blank**, default: `""`
 - `ansible.ansibleDoc.path`: Path to the ansible-doc executable, default: `ansible-doc`
 - `ansible.ansibleDoc.enableSplitRight`: Use vertical belowright for ansible-doc terminal window, default: `true`
 - `ansible.ansibleNavigator.path`: Points to the ansible-navigator executable, default: `"ansible-navigator"`
