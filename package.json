@@ -1,6 +1,6 @@
 {
   "name": "@yaegassy/coc-ansible",
-  "version": "0.12.5",
+  "version": "0.13.0",
   "description": "ansible-language-server extension for coc.nvim",
   "author": "yaegassy <yosstools@gmail.com>",
   "license": "MIT",
