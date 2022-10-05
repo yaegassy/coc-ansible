@@ -56,7 +56,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   const pythonCommandPaths = getCurrentPythonPath(extensionConfig);
 
   const ansiblePath = extensionConfig.get('ansible.path', 'ansible');
-  const ansibleLintPath = extensionConfig.get('ansibleLint.path', 'ansible-lint');
+  const ansibleLintPath = extensionConfig.get('ansible.validation.lint.path', 'ansible-lint');
   const ansibleDocPath = extensionConfig.get('ansibleDoc.path', 'ansible-doc');
   const forceBuiltinTools = extensionConfig.get('builtin.force', false);
 
@@ -234,7 +234,7 @@ function configuration(params: ConfigurationParams, token: CancellationToken, ne
 
       // [patch] In coc-ansible, this setting is a fixed value.
       extensionConfig['ansible']['path'] = 'ansible';
-      extensionConfig['ansibleLint']['path'] = 'ansible-lint';
+      extensionConfig['validation']['lint']['path'] = 'ansible-lint';
 
       if (!pythonInterpreterPath && !existsAnsibleCmd) {
         // [patch] Use extension venv
@@ -242,12 +242,12 @@ function configuration(params: ConfigurationParams, token: CancellationToken, ne
       } else if (pythonInterpreterPath) {
         // [patch] If "ansible-lint" is not found, this feature will be set to false.
         if (!existsAnsibleLintModule) {
-          extensionConfig['ansibleLint']['enabled'] = false;
+          extensionConfig['validation']['lint']['enabled'] = false;
         }
       } else {
         // [patch] If "ansible-lint" is not found, this feature will be set to false.
         if (!existsAnsibleLintCmd) {
-          extensionConfig['ansibleLint']['enabled'] = false;
+          extensionConfig['validation']['lint']['enabled'] = false;
         }
       }
 
