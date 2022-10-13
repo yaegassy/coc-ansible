@@ -56,7 +56,7 @@ class IgnoringRulesCodeActionProvider implements CodeActionProvider {
       const line = doc.getline(range.start.line);
       if (line && line.length) {
         let existsAnsibleDiagnostics = false;
-        const ruleIds: string[] = [];
+        const ruleIds: (string | number)[] = [];
         context.diagnostics.forEach((d) => {
           if (d.source === 'ansible-lint') {
             existsAnsibleDiagnostics = true;
@@ -68,18 +68,18 @@ class IgnoringRulesCodeActionProvider implements CodeActionProvider {
         });
 
         if (existsAnsibleDiagnostics) {
-          ruleIds.forEach((r) => {
+          ruleIds.forEach((id) => {
             let newText = '';
             if (line.match(/# noqa/)) {
-              newText = `${line} ${r}${range.start.line + 1 === range.end.line ? '\n' : ''}`;
+              newText = `${line} ${id}${range.start.line + 1 === range.end.line ? '\n' : ''}`;
             } else {
-              newText = `${line} # noqa ${r}${range.start.line + 1 === range.end.line ? '\n' : ''}`;
+              newText = `${line} # noqa ${id}${range.start.line + 1 === range.end.line ? '\n' : ''}`;
             }
 
             const edit = TextEdit.replace(range, newText);
 
             codeActions.push({
-              title: `Ignoring rules for current line (# noqa ${r})`,
+              title: `Ignoring rules for current line (# noqa ${id})`,
               edit: {
                 changes: {
                   [doc.uri]: [edit],
