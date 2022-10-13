@@ -2,6 +2,7 @@ import {
   CodeAction,
   CodeActionContext,
   CodeActionProvider,
+  Diagnostic,
   DocumentSelector,
   ExtensionContext,
   languages,
@@ -10,6 +11,19 @@ import {
   TextDocument,
   workspace,
 } from 'coc.nvim';
+
+type AdditionalDiagnostic = {
+  codeDescription?: {
+    href?: string;
+  };
+};
+
+type ALSDiagnostic = Diagnostic & AdditionalDiagnostic;
+
+type AnsibleLintRules = {
+  id: string | number;
+  href: string;
+};
 
 export function activate(context: ExtensionContext, outputChannel: OutputChannel) {
   const documentSelector: DocumentSelector = [
@@ -55,25 +69,34 @@ class ShowWebDocumentationCodeActionProvider implements CodeActionProvider {
       const line = doc.getline(range.start.line);
       if (line && line.length) {
         let existsAnsibleDiagnostics = false;
-        const ruleIds: string[] = [];
+
+        const ansibleLintRules: AnsibleLintRules[] = [];
         context.diagnostics.forEach((d) => {
-          if (d.source === 'Ansible') {
+          if (d.source === 'ansible-lint') {
             existsAnsibleDiagnostics = true;
-            // e.g. fqcn-builtins, risky-file-permissions, yaml[trailing-spaces], schema[tasks]
-            const ruleId = d.message.split('\n')[0].split('[')[0];
-            if (ruleId) ruleIds.push(ruleId);
+
+            if ('codeDescription' in d) {
+              const alsDiagnostic = d as ALSDiagnostic;
+              if (alsDiagnostic.codeDescription?.href) {
+                if (alsDiagnostic.code) {
+                  ansibleLintRules.push({
+                    id: alsDiagnostic.code,
+                    href: alsDiagnostic.codeDescription.href,
+                  });
+                }
+              }
+            }
           }
         });
 
         if (existsAnsibleDiagnostics) {
-          ruleIds.forEach((r) => {
-            const title = `Show web documentation for ${r}`;
-            const url = `https://ansible-lint.readthedocs.io/rules/${r}/`;
+          ansibleLintRules.forEach((r) => {
+            const title = `Show web documentation for ${r.id}`;
 
             const command = {
               title: '',
               command: 'vscode.open',
-              arguments: [url],
+              arguments: [r.href],
             };
 
             const action: CodeAction = {
