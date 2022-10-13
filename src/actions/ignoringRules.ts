@@ -58,10 +58,12 @@ class IgnoringRulesCodeActionProvider implements CodeActionProvider {
         let existsAnsibleDiagnostics = false;
         const ruleIds: string[] = [];
         context.diagnostics.forEach((d) => {
-          if (d.source === 'Ansible') {
+          if (d.source === 'ansible-lint') {
             existsAnsibleDiagnostics = true;
-            const ruleId = d.message.split('\n')[0];
-            if (ruleId) ruleIds.push(ruleId);
+            if (d.code) {
+              const ruleId = d.code;
+              if (ruleId) ruleIds.push(ruleId);
+            }
           }
         });
 
