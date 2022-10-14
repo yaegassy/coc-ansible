@@ -132,7 +132,9 @@ In the line with diagnostic message, enter the mapped key (e.g. `ga`) and you wi
 **Actions**:
 
 - `Ignoring rules for current line (# noqa [ruleId])` | [DEMO](https://github.com/yaegassy/coc-ansible/pull/13)
+  - Requires `ansible-lint` "v6.8.1" or later.
 - `Show web documentation for [ruleId]` | [DEMO](https://github.com/yaegassy/coc-ansible/pull/21#issue-1296813716)
+  - Requires `ansible-lint` "v6.8.1" or later.
 
 ## Thanks
 
