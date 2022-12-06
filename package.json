@@ -68,13 +68,13 @@
         "fileMatch": [
           "execution-environment.yml"
         ],
-        "url": "https://raw.githubusercontent.com/ansible/schemas/main/f/ansible-ee.json"
+        "url": "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/execution-environment.json"
       },
       {
         "fileMatch": [
           "meta/runtime.yml"
         ],
-        "url": "https://raw.githubusercontent.com/ansible/schemas/main/f/ansible-meta-runtime.json"
+        "url": "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/meta-runtime.json"
       },
       {
         "fileMatch": [
@@ -87,11 +87,11 @@
       },
       {
         "fileMatch": "requirements.yml",
-        "url": "https://raw.githubusercontent.com/ansible/schemas/main/f/ansible-requirements.json"
+        "url": "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/requirements.json"
       },
       {
         "fileMatch": "meta/main.yml",
-        "url": "https://raw.githubusercontent.com/ansible/schemas/main/f/ansible-meta.json"
+        "url": "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/meta.json"
       },
       {
         "fileMatch": [
@@ -106,7 +106,7 @@
           "group_vars/*.yml",
           "group_vars/*.yaml"
         ],
-        "url": "https://raw.githubusercontent.com/ansible/schemas/main/f/ansible-vars.json"
+        "url": "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/vars.json"
       },
       {
         "fileMatch": [
@@ -125,7 +125,7 @@
         "fileMatch": [
           "galaxy.yml"
         ],
-        "url": "https://raw.githubusercontent.com/ansible/schemas/main/f/ansible-galaxy.json"
+        "url": "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/galaxy.json"
       },
       {
         "fileMatch": [
