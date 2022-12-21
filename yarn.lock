@@ -2,16 +2,15 @@
 # yarn lockfile v1
 
 
-"@ansible/ansible-language-server@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@ansible/ansible-language-server/-/ansible-language-server-1.0.2.tgz#f862cb12f86d077740590b51282d1a6ffb0824dd"
-  integrity sha512-z23uIaj9IAdqiB6xHYNOUSrBXJQwQjywMLhKOoejuC7AECXmqLPjYm4cMgiPG3SjO6nmSIe08nq/Qfhu2Bm5ww==
+"@ansible/ansible-language-server@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@ansible/ansible-language-server/-/ansible-language-server-1.0.3.tgz#66ca474680dd1efb4f224baf54bbbf5bd30aed12"
+  integrity sha512-K0iuCjehA40khfoapvp4sVzwbwfgUsWLLgnDYr3UnFqymSyXc7Xnq4JVvC5VXUb2pbVSzrplJgsHLiEhs8PfCQ==
   dependencies:
     "@flatten-js/interval-tree" "^1.0.18"
     glob "^8.0.1"
     ini "^3.0.0"
     lodash "^4.17.21"
-    uuid "^8.3.2"
     vscode-languageserver "^7.0.0"
     vscode-languageserver-textdocument "^1.0.4"
     vscode-uri "^3.0.3"
@@ -1130,11 +1129,6 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
-
-uuid@^8.3.2:
-  version "8.3.2"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
-  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 vscode-jsonrpc@6.0.0:
   version "6.0.0"
