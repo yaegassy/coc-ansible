@@ -29,7 +29,7 @@ export async function installLsRequirementsTools(pythonCommand: string, context:
   const installYamllintStr = _installToolVersionStr('yamllint', extensionConfig.get('builtin.yamllintVersion'));
 
   const installCmd =
-    `${pythonCommand} -m venv ${pathVenv} && ` +
+    `"${pythonCommand}" -m venv ${pathVenv} && ` +
     `${pathVenvPython} -m pip install -U pip ${installAnsibleStr} ${installAnsibleLintStr}`;
 
   if (isWithYamlLint) {
