@@ -2,12 +2,13 @@
 # yarn lockfile v1
 
 
-"@ansible/ansible-language-server@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@ansible/ansible-language-server/-/ansible-language-server-1.1.0.tgz#c8b952c27989e1c1767089b24c5251030f320137"
-  integrity sha512-w8Y8jGW/IDP6NzPM6L/VpS6Fcaren/y2Ho8lSWPvwejHS8qlepwJ1GnzI8TkXplu0wUhL8goAEvIZJeUK0Of9A==
+"@ansible/ansible-language-server@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@ansible/ansible-language-server/-/ansible-language-server-1.2.0.tgz#142bae101dc1d6d9500e3bac849d3e517129195c"
+  integrity sha512-2zc8crdXjl+eZ0g9IsP0Olcg3pD0bEJw8oapZcP5RrAuHq3SCKJL8qz0NcyGDBzFcmgXtenVBFszhyGV0gbDiQ==
   dependencies:
     "@flatten-js/interval-tree" "^1.0.20"
+    antsibull-docs "^1.0.0"
     glob "^9.3.2"
     ini "^4.0.0"
     lodash "^4.17.21"
@@ -365,6 +366,11 @@ ansi-styles@^4.1.0:
   integrity sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==
   dependencies:
     color-convert "^2.0.1"
+
+antsibull-docs@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/antsibull-docs/-/antsibull-docs-1.0.0.tgz#1f73a5c54ebc6fc0a4a5689223e29aab4795353f"
+  integrity sha512-OqrXCQkKeqTTuFBmQc9RJnXPcjUtRnMq0rfmT3zlp6UHJWTwq1SLffwOEw1I5jC7FNLMoabUjPb8wxCNB3RaZw==
 
 argparse@^2.0.1:
   version "2.0.1"
