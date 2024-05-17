@@ -2,7 +2,7 @@ import { ExtensionContext, window, workspace } from 'coc.nvim';
 
 import child_process from 'child_process';
 import path from 'path';
-import rimraf from 'rimraf';
+import { rimrafSync } from 'rimraf';
 import util from 'util';
 
 const exec = util.promisify(child_process.exec);
@@ -36,7 +36,7 @@ export async function installLsRequirementsTools(pythonCommand: string, context:
     installCmd.concat(' ', installYamllintStr);
   }
 
-  rimraf.sync(pathVenv);
+  rimrafSync(pathVenv);
   try {
     window.showInformationMessage(`Install Ansible Server requirements tools...`);
     await exec(installCmd);
