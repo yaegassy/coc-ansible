@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@ansible/ansible-language-server@^26.4.5":
-  version "26.4.5"
-  resolved "https://registry.yarnpkg.com/@ansible/ansible-language-server/-/ansible-language-server-26.4.5.tgz#715a95891c0eb1ebc31d4425003b780b8d6e75f0"
-  integrity sha512-5eK85FUmqFE2XMPyg0mzOHzUgjcRm+LzHqwMBa3v2JKaywt66Xg6Yh7t8k7+pn4wd5gFxm36YlJRHEm+tOPpFQ==
+"@ansible/ansible-language-server@^26.6.0":
+  version "26.6.0"
+  resolved "https://registry.yarnpkg.com/@ansible/ansible-language-server/-/ansible-language-server-26.6.0.tgz#ccc5b6d2d00e66c1d838396ce472b622472de9cb"
+  integrity sha512-DPTmckrnNCf8KdeSu9pE/mjnovSL28InnQhDS2lsuDrLI8obapMxAU0KLDYnC++aTjCK8bZhhkR5HFh3lDddqw==
   dependencies:
     "@flatten-js/interval-tree" "^2.0.3"
     ajv "^8.18.0"
@@ -13,8 +13,9 @@
     antsibull-docs "^1.1.4"
     glob "^13.0.6"
     handlebars "^4.7.8"
-    ini "^6.0.0"
+    ini "^7.0.0"
     lodash "^4.17.23"
+    shell-quote "^1.8.3"
     uuid "^14.0.0"
     vscode-languageserver "^9.0.1"
     vscode-languageserver-protocol "^3.17.5"
@@ -885,10 +886,10 @@ inherits@2:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
-ini@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/ini/-/ini-6.0.0.tgz#efc7642b276f6a37d22fdf56ef50889d7146bf30"
-  integrity sha512-IBTdIkzZNOpqm7q3dRqJvMaldXjDHWkEDfrwGEQTs5eaQMWV+djAhR+wahyNNMAa+qpbDUhBMVt4ZKNwpPm7xQ==
+ini@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-7.0.0.tgz#d8b3ecbf9425a8581bd95921eb3be1a7948531d4"
+  integrity sha512-ifK0CgjALofS5bkrcTy4RaQ9Vx2Knf/eLeIO+NaswQEpH1UblrtTSCIvN71qQDMq0PeQ/SSPojvEJp9vvvfr+w==
 
 is-extglob@^2.1.1:
   version "2.1.1"
@@ -1231,6 +1232,11 @@ shebang-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
+
+shell-quote@^1.8.3:
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.8.4.tgz#2edd9a4dcefc96649e2e2cb12f637b1f1d92a190"
+  integrity sha512-VsC6n6vz1ihYYyZZwX7YZSF5l5x36ca17OC+a69h94YqB7X6XLwf+5MOgynYir2SLFUbl8gIYvBo8K8RoNQ6bQ==
 
 signal-exit@^4.0.1:
   version "4.1.0"
